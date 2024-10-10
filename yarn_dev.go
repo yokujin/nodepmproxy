@@ -13,23 +13,22 @@ func (s *NodePMProxy) runYarnDev() {
 		log.Fatal().Msg("path to site is not known. don't know how to start 'yarn dev'")
 	}
 
-	log.Debug().Any("path", s.SitePath).Any("port", s.Port).Msg("running yarn dev")
-
-	err := os.Chdir(s.SitePath)
-	if err != nil {
-		log.Fatal().Err(err).Msg("chdir to site dir")
-	}
+	log.Debug().
+		Any("path", s.SitePath).
+		Any("port", s.Port).
+		Msg("running yarn dev")
 
 	cmd := exec.Command("yarn", "dev")
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
+	cmd.Dir = s.SitePath
+	cmd.Env = append(
+		os.Environ(),
+		fmt.Sprintf("PORT=%d", s.Port),
+	)
 
-	additionalEnv := fmt.Sprintf("PORT=%d", s.Port)
-	newEnv := append(os.Environ(), additionalEnv)
-	cmd.Env = newEnv
-
-	err = cmd.Run()
+	err := cmd.Run()
 	if err != nil {
 		log.Fatal().Err(err).Msg("yarn dev")
 	}
