@@ -14,7 +14,12 @@ import (
 
 func (s *NodePMProxy) SetupEcho(e *echo.Echo) {
 
-	go s.runYarnDev()
+	switch s.PM {
+	case YARN:
+		go s.runYarnDev()
+	case BUN:
+		go s.runBunDev()
+	}
 
 	wp, err := wsp.NewProxy(fmt.Sprintf("ws://localhost:%d/_nuxt/", s.Port), func(r *http.Request) error {
 		// // Permission to verify
