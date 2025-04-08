@@ -21,7 +21,17 @@ func (s *NodePMProxy) SetupEcho(e *echo.Echo) {
 		go s.runBunDev()
 	}
 
-	wp, err := wsp.NewProxy(fmt.Sprintf("ws://localhost:%d/_nuxt/", s.Port), func(r *http.Request) error {
+	var (
+		wppath string
+		wp     *wsp.WebsocketProxy
+		err    error
+	)
+	if s.Framework == SVELTE {
+		wppath = fmt.Sprintf("ws://localhost:%d/", s.Port)
+	} else {
+		wppath = fmt.Sprintf("ws://localhost:%d/_nuxt/", s.Port)
+	}
+	wp, err = wsp.NewProxy(wppath, func(r *http.Request) error {
 		// // Permission to verify
 		// r.Header.Set("Cookie", "----")
 		// // Source of disguise
