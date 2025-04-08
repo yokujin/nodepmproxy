@@ -42,11 +42,11 @@ func WithBun(o *Options) {
 }
 
 func WithNuxt(o *Options) {
-	o.PM = NUXT
+	o.Framework = NUXT
 }
 
 func WithSvelte(o *Options) {
-	o.PM = SVELTE
+	o.Framework = SVELTE
 }
 
 func WithSitePath(pth string) OptionFn {
