@@ -22,7 +22,7 @@ func (s *NodePMProxy) runBunDev() {
 	if s.Framework == SVELTE {
 		cmd = exec.Command("bun", "dev", "--port", fmt.Sprintf("%d", s.Port))
 	} else {
-		cmd = exec.Command("bun", "dev", "qqq")
+		cmd = exec.Command("bun", "dev")
 	}
 
 	cmd.Stdout = os.Stdout
