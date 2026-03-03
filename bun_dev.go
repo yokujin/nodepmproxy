@@ -18,7 +18,12 @@ func (s *NodePMProxy) runBunDev() {
 		Any("port", s.Port).
 		Msg("running bun dev")
 
-	cmd := exec.Command("bun", "dev")
+	var cmd *exec.Cmd
+	if s.Framework == SVELTE {
+		cmd = exec.Command("bun", "dev", "--port", fmt.Sprintf("%d", s.Port))
+	} else {
+		cmd = exec.Command("bun", "dev")
+	}
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

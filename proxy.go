@@ -5,6 +5,11 @@ const (
 	BUN
 )
 
+const (
+	NUXT = iota
+	SVELTE
+)
+
 type NodePMProxy struct {
 	Options
 }
