@@ -48,7 +48,7 @@ func (s *NodePMProxy) SetupEcho(e *echo.Echo) {
 	e.Any("/_nuxt/", echo.WrapHandler(wp))
 	e.Any("/*", s.GetOr404())
 
-	log.Fatal().Err(err).Msg("error creating websocket proxy")
+	log.Debug().Msg("done setting up package manager proxy")
 }
 
 func (s *NodePMProxy) GetOr404() echo.HandlerFunc {
