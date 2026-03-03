@@ -21,6 +21,8 @@ func (s *NodePMProxy) SetupEcho(e *echo.Echo) {
 		go s.runBunDev()
 	}
 
+	log.Debug().Msg("started running package manager")
+
 	wp, err := wsp.NewProxy(fmt.Sprintf("ws://localhost:%d/_nuxt/", s.Port), func(r *http.Request) error {
 		// // Permission to verify
 		// r.Header.Set("Cookie", "----")
@@ -36,6 +38,7 @@ func (s *NodePMProxy) SetupEcho(e *echo.Echo) {
 	e.Any("/_nuxt/", echo.WrapHandler(wp))
 	e.Any("/*", s.GetOr404())
 
+	log.Fatal().Err(err).Msg("error creating websocket proxy")
 }
 
 func (s *NodePMProxy) GetOr404() echo.HandlerFunc {
