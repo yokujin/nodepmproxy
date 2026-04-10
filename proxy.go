@@ -3,6 +3,7 @@ package nodepmproxy
 const (
 	YARN = iota
 	BUN
+	PNPM
 )
 
 const (

@@ -41,6 +41,10 @@ func WithBun(o *Options) {
 	o.PM = BUN
 }
 
+func WithPnpm(o *Options) {
+	o.PM = PNPM
+}
+
 func WithNuxt(o *Options) {
 	o.Framework = NUXT
 }

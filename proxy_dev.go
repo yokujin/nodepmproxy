@@ -19,6 +19,8 @@ func (s *NodePMProxy) SetupEcho(e *echo.Echo) {
 		go s.runYarnDev()
 	case BUN:
 		go s.runBunDev()
+	case PNPM:
+		go s.runPnpmDev()
 	}
 
 	log.Debug().Msg("started running package manager")
