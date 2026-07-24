@@ -25,11 +25,17 @@ func defaultOptions() Options {
 
 	return Options{
 		Port:       port,
-		PM:         YARN,
+		PM:         AUTO,
 		Framework:  NUXT,
 		SitePath:   "",
 		Embedded:   false,
 		EmbeddedFS: nil,
+	}
+}
+
+func WithPort(port int) OptionFn {
+	return func(o *Options) {
+		o.Port = port
 	}
 }
 
